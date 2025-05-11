@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Il Continente - Notizie senza confini</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Reset e stili base ridotti */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.4;
+            color: #000000;
+            background-color: #f9f9f9;
+            font-size: 13px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            font-size: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Titoli ridotti */
+        h1, h2, h3, h4, h5, h6,
+        .article-title, .side-article-title, .grid-article-title,
+        .article-info p, .side-article-info p, .grid-article-info p,
+        .article-content p, .breaking-text, .date,
+        .section-title, .see-all, .article-card p,
+        .main-article h2, .main-article p {
+            color: #000000 !important;
+        }
+
+        h1 { font-size: 20px; }
+        h2 { font-size: 18px; }
+        h3 { font-size: 16px; }
+        h4 { font-size: 15px; }
+        h5, h6 { font-size: 14px; }
+
+        /* Header ridotto */
+        .top-bar {
+            background-color: #1a3e72;
+            color: white;
+            padding: 12px 0;
+            font-size: 11px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .top-links a {
+            margin-left: 15px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .top-links a.yellow {
+            color: #ffcc00;
+        }
+
+        .social-icons {
+            display: flex;
+            margin-left: 15px;
+        }
+
+        .social-icons a {
+            margin-left: 10px;
+            font-size: 14px;
+            color: white;
+        }
+
+        /* Main Header compatto */
+        .main-header {
+            background-color: white;
+            padding: 15px 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #000000;
+            text-transform: uppercase;
+        }
+
+        .weather {
+            display: flex;
+            align-items: center;
+        }
+
+        .weather-icon {
+            font-size: 20px;
+            color: #ffcc00;
+            margin-right: 5px;
+        }
+
+        .weather-temp {
+            font-weight: bold;
+        }
+
+        .date {
+            font-size: 12px;
+        }
+
+        /* Hamburger menu */
+        .menu-toggle {
+            display: grid;
+            cursor: pointer;
+            padding: 1px;
+            position: absolute;
+            left: 10px;
+            top: 1px;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 4px 0;
+            transition: all 0.3s ease;
+        }
+
+        #menu-checkbox {
+            display: none;
+        }
+
+        /* Navigation compatta */
+        .main-nav::before,
+        .main-nav::after {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: black;
+        }
+
+        .nav-list {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-item a {
+            display: block;
+            color: black;
+            padding: 5px 8px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 10px;
+            position: relative;
+        }
+
+        /* Stile per gli elementi speciali del menu */
+        .nav-item.special-green a {
+            background-color: #4CAF50;
+            padding-left: 30px;
+        }
+
+        .nav-item.special-red a {
+            background-color: #f44336;
+            padding-left: 30px;
+        }
+
+        .nav-item.special-green a::before,
+        .nav-item.special-red a::before {
+            content: "★";
+            color: white;
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+        }
+
+        /* Sezioni principali */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #000000;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            text-transform: uppercase;
+        }
+
+        .see-all {
+            font-size: 12px;
+        }
+
+        /* Sezione Primo Piano - Colonna singola */
+        .primo-piano {
+            margin: 25px 0;
+        }
+
+        .primo-piano-article {
+            margin-bottom: 20px;
+        }
+
+        .primo-piano-article img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .primo-piano-article h2 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .primo-piano-article p {
+            font-size: 13px;
+        }
+
+        /* Sezione In Evidenza - Stessa riga */
+        .in-evidenza {
+            margin: 25px 0;
+        }
+
+        .evidenza-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .evidenza-card {
+            background-color: white;
+            border-radius: 3px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .evidenza-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .evidenza-content {
+            padding: 10px;
+        }
+
+        .evidenza-card h3 {
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+
+        /* Sezione Mantova Calcio - Stessa riga, sfondo blu */
+        .mantova-calcio {
+            background-color: #1a3e72;
+            padding: 20px 0;
+            margin: 25px 0;
+            color: white;
+        }
+
+        .mantova-calcio .section-title,
+        .mantova-calcio .see-all,
+        .mantova-calcio h3,
+        .mantova-calcio p {
+            color: white !important;
+        }
+
+        .mantova-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .mantova-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .mantova-content {
+            padding: 10px;
+        }
+
+        /* Sezione Cronaca - Colonna singola */
+        .cronaca {
+            margin: 25px 0;
+        }
+
+        .cronaca-article {
+            display: flex;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cronaca-article img {
+            width: 150px;
+            height: 100px;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+
+        .cronaca-content h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        /* Sezione Cultura e Spettacoli - Stessa riga, sfondo blu */
+        .cultura-spettacoli {
+            background-color: #1a3e72;
+            padding: 20px 0;
+            margin: 25px 0;
+            color: white;
+        }
+
+        .cultura-spettacoli .section-title,
+        .cultura-spettacoli .see-all,
+        .cultura-spettacoli h3,
+        .cultura-spettacoli p {
+            color: white !important;
+        }
+
+        .cultura-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .cultura-card img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+        }
+
+        .cultura-content {
+            padding: 5px 0;
+        }
+
+        /* Sezione Altre Notizie - Griglia su più righe */
+        .altre-notizie {
+            margin: 25px 0;
+            background-color: white;
+            padding: 15px;
+        }
+
+        .altre-notizie-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .altre-notizie-card img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+        }
+
+        .altre-notizie-content h4 {
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        /* Sezione Sport - Stessa riga, sfondo blu */
+        .sport {
+            background-color: #1a3e72;
+            padding: 20px 0;
+            margin: 25px 0;
+            color: white;
+        }
+
+        .sport .section-title,
+        .sport .see-all,
+        .sport h3,
+        .sport p {
+            color: white !important;
+        }
+
+        .sport-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .sport-card img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+        }
+
+        .sport-content {
+            padding: 5px 0;
+        }
+
+        /* Sezione Rubriche - Griglia su più righe */
+        .rubriche {
+            margin: 25px 0;
+        }
+
+        .rubriche-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .rubriche-card img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+        }
+
+        .rubriche-content h4 {
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        /* Sezione Video - Stessa riga, sfondo blu */
+        .video-section {
+            background-color: #1a3e72;
+            padding: 20px 0;
+            margin: 25px 0;
+            color: white;
+        }
+
+        .video-section .section-title,
+        .video-section .see-all,
+        .video-section h3,
+        .video-section p {
+            color: white !important;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .video-card {
+            position: relative;
+        }
+
+        .video-card img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+        }
+
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            background-color: rgba(0,0,0,0.5);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .video-title {
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        /* Sezione Italia e Mondo */
+        italia-mondo {
+            margin: 25px 0;
+        }
+
+        .tim-article {
+            display: flex;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tim-article img {
+            width: 150px;
+            height: 100px;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+
+        .tim-content h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .video-badge {
+            display: inline-block;
+            background-color: #d32f2f;
+            color: white;
+            padding: 2px 5px;
+            font-size: 11px;
+            border-radius: 3px;
+            margin-left: 5px;
+        }
+
+        /* Sezione Necrologie - Lista con foto */
+        .necrologie {
+            margin: 25px 0;
+        }
+
+        .necrologie-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .necrologia-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 3px;
+        }
+
+        .necrologia-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .necrologia-info h4 {
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+
+        .necrologia-info p {
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* Breaking News ridotto */
+        .breaking-news {
+            background-color: #d32f2f;
+            color: white;
+            padding: 10px 0;
+            margin: 20px 0;
+        }
+
+        .breaking-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .breaking-label {
+            font-weight: bold;
+            margin-right: 10px;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+
+        .breaking-text {
+            font-size: 14px;
+        }
+
+        /* Footer compatto */
+        .main-footer {
+            background-color: #222;
+            color: white;
+            padding: 20px 0 10px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .footer-column h3 {
+            color: #ffcc00;
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 8px;
+        }
+
+        .footer-column a {
+            color: #ccc;
+            font-size: 12px;
+        }
+
+        .footer-column a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid #444;
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* Stili aggiunti per la top bar */
+        .edition {
+            display: flex;
+            align-items: center;
+        }
+
+        .edition-item {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+
+        .edition-item i {
+            margin-right: 5px;
+            color: #ffcc00;
+        }
+
+        .newspaper-name {
+            font-weight: bold;
+            margin-right: 20px;
+            font-size: 14px;
+        }
+
+        /* Responsive Design adattato */
+        @media (max-width: 992px) {
+            .evidenza-grid,
+            .mantova-grid,
+            .cultura-grid,
+            .altre-notizie-grid,
+            .sport-grid,
+            .rubriche-grid,
+            .video-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .necrologie-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-list {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background-color: #1a3e72;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                z-index: 1000;
+            }
+
+            #menu-checkbox:checked ~ .nav-list {
+                display: flex;
+            }
+
+            .nav-item {
+                width: 100%;
+                text-align: left;
+            }
+
+            .nav-item a {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .header-content {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .header-left,
+            .header-center,
+            .header-right {
+                position: static;
+                transform: none;
+                width: 100%;
+                justify-content: space-between;
+                margin-bottom: 5px;
+            }
+
+            .logo {
+                text-align: center;
+                width: 100%;
+            }
+
+            .weather {
+                justify-content: flex-start;
+            }
+
+            .date {
+                text-align: right;
+            }
+
+            .evidenza-grid,
+            .mantova-grid,
+            .cultura-grid,
+            .altre-notizie-grid,
+            .sport-grid,
+            .rubriche-grid,
+            .video-grid,
+            .necrologie-list {
+                grid-template-columns: 1fr;
+            }
+
+            .cronaca-article,
+            .tim-article {
+                flex-direction: column;
+            }
+
+            .cronaca-article img,
+            .tim-article img {
+                width: 100%;
+                height: auto;
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+
+            .section-title {
+                font-size: 16px;
+            }
+
+            .social-icons {
+                display: none;
+            }
+
+            .edition {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .edition-item {
+                margin-right: 0;
+                margin-bottom: 5px;
+            }
+
+            .newspaper-name {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Top Bar -->
+<div class="top-bar">
+    <div class="container">
+        <div class="top-bar-content">
+            <div class="edition">
+                <span class="newspaper-name">GAZZETTA DI MANTOVA</span>
+                <span class="edition-item"><i class="fas fa-newspaper"></i> Edizione digitale</span>
+                <span class="edition-item"><i class="fas fa-envelope"></i> Newsletter</span>
+                <span class="edition-item"><i class="fas fa-flag"></i> Segnala</span>
+                <span class="edition-item"><i class="fas fa-cross"></i> Necrologie</span>
+            </div>
+            <div class="top-links">
+                <a href="#" class="yellow">Abbonati</a>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+                <input type="checkbox" id="menu-checkbox">
+                <label for="menu-checkbox" class="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Header -->
+<header class="main-header">
+    <div class="container">
+        <div class="header-content">
+            <div class="header-left">
+                <div class="weather">
+                    <i class="fas fa-sun weather-icon"></i>
+                    <span class="weather-temp">25°C</span>
+                </div>
+            </div>
+
+            <div class="header-center">
+                <div class="logo">GAZZETTA DI MANTOVA</div>
+            </div>
+
+            <div class="header-right">
+                <div class="date">Mercoledì 24 Aprile 2025</div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Navigation -->
+<div>
+    <div class="container">
+        <nav class="main-nav">
+            <ul class="nav-list">
+                <li class="nav-item special-green"><a href="#">Vota Pallone d'oro</a></li>
+                <li class="nav-item"><a href="#">Cronaca</a></li>
+                <li class="nav-item special-red"><a href="#">Mantova Calcio</a></li>
+                <li class="nav-item"><a href="#">Spettacoli</a></li>
+                <li class="nav-item"><a href="#">Cultura</a></li>
+                <li class="nav-item"><a href="#">Video</a></li>
+                <li class="nav-item"><a href="#">Italia</a></li>
+                <li class="nav-item"><a href="#">Cinema</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="container">
+
+            <!-- Sezione Primo Piano - Colonna singola -->
+            <section class="primo-piano">
+                <div class="section-header">
+                    <h2 class="section-title">Primo Piano</h2>
+                    <a href="#" class="see-all">Vedi tutti</a>
+                </div>
+
+                <article class="primo-piano-article">
+                    <img src="https://images.unsplash.com/photo-1560520031-3a4dc4e9de0c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Crisi abitativa">
+                    <h2>Crisi abitativa: aumentano gli sfratti nelle grandi città</h2>
+                    <p>Un rapporto shock rivela che migliaia di famiglie rischiano di perdere la casa nei prossimi mesi a causa dell'aumento degli affitti e della stagnazione dei salari.</p>
+                </article>
+
+                <article class="primo-piano-article">
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Scoperta medica">
+                    <h2>Scoperto nuovo metodo per diagnosticare il cancro in fase precoce</h2>
+                    <p>I ricercatori dell'università locale hanno sviluppato una tecnica rivoluzionaria che potrebbe salvare migliaia di vite.</p>
+                </article>
+            </section>
+
+            <!-- Sezione In Evidenza - Stessa riga -->
+            <section class="in-evidenza">
+                <div class="section-header">
+                    <h2 class="section-title">In Evidenza</h2>
+                    <a href="#" class="see-all">Vedi tutti</a>
+                </div>
+
+                <div class="evidenza-grid">
+                    <article class="evidenza-card">
+                        <img src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80" alt="Politica">
+                        <div class="evidenza-content">
+                            <h3>Elezioni regionali: i candidati si scontrano sul tema sicurezza</h3>
+                        </div>
+                    </article>
+
+                    <article class="evidenza-card">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80" alt="Economia">
+                        <div class="evidenza-content">
+                            <h3>Borsa in ripresa: i titoli da tenere d'occhio questa settimana</h3>
+                        </div>
+                    </article>
+
+                    <article class="evidenza-card">
+                        <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80" alt="Sport">
+                        <div class="evidenza-content">
+                            <h3>Calcio: la squadra locale vince il derby e sale in classifica</h3>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Sezione Mantova Calcio - Stessa riga, sfondo blu -->
+            <section class="mantova-calcio">
+                <div class="container">
+                    <div class="section-header">
+                        <h2 class="section-title">Mantova Calcio</h2>
+                        <a href="#" class="see-all">Vedi tutti</a>
+                    </div>
+
+                    <div class="mantova-grid">
+                        <article class="mantova-card">
+                            <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80" alt="Calcio">
+                            <div class="mantova-content">
+                                <h3>Derby cittadino: vittoria storica per la squadra locale</h3>
+                            </div>
+                        </article>
+
+                        <article class="mantova-card">
+                            <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80" alt="Basket">
+                            <div class="mantova-content">
+                                <h3>Basket: la squadra vola in semifinale</h3>
+                            </div>
+                        </article>
+
+                        <article class="mantova-card">
+                            <img src="https://images.unsplash.com/photo-1485965120184-e220f721d03e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80" alt="Ciclismo">
+                            <div class="mantova-content">
+                                <h3>Ciclismo: atleta locale vince la tappa</h3>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sezione Cronaca - Colonna singola -->
+            <section class="cronaca">
+                <div class="section-header">
+                    <h2 class="section-title">Cronaca</h2>
+                    <a href="#" class="see-all">Vedi tutti</a>
+                </div>
+
+                <article class="cronaca-article">
+                    <img src="https://images.unsplash.com/photo-1600469984476-c713650f1b8d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80" alt="Polizia">
+                    <div class="cronaca-content">
+                        <h3>Rapina in banca: arrestati i presunti autori</h3>
+                        <p>I carabinieri hanno fermato tre persone sospettate del colpo in centro città la scorsa settimana.</p>
+                    </div>
+                </article>
+
+                <article class="cronaca-article">
+                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80" alt="Incendio">
+                    <div class="cronaca-content">
+                        <h3>Incendio in fabbrica: danni per milioni</h3>
+                        <p>Le fiamme hanno distrutto parte dello stabilimento industriale nella zona nord della città.</p>
+                    </div>
+                </article>
+
+                <article class="cronaca-article">
+                    <img src="https://images.unsplash.com/photo-1494412651409-8963ce7935a7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80" alt="Manifestazione">
+                    <div class="cronaca-content">
+                        <h3>Manifestazione degli studenti: traffico in tilt</h3>
+                        <p>Migliaia di giovani in piazza per protestare contro i tagli all'istruzione.</p>
+                    </div>
+                </article>
+            </section>
+
+            <!-- Sezione Cultura -->
+            <section class="culturai">
+                <div class="container">
+                    <div class="section-header">
+                        <h2 class="section-title">Cultura</h2>
+                        <a href="#" class="see-all">Vedi tutti</a>
+                    </div>
+
+                    <div class="cultura-grid">
+                        <article class="cultura-card">
+                            <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80" alt="Museo">
+                            <div class="cultura-content">
+                                <h3>Nuova mostra al museo civico</h3>
+                            </div>
+                        </article>
+
+                        <article class="cultura-card">
+                            <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80" alt="Libro">
+                            <div class="cultura-content">
+                                <h3>Scrittore locale vince premio</h3>
+                            </div>
+                        </article>
+
+                        <article class="cultura-card">
+                            <img src="https://images.unsplash.com/photo-1496337589254-7e19d01cec44?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80" alt="Teatro">
+                            <div class="cultura-content">
+                                <h3>Stagione teatrale annunciata</h3>
+                            </div>
+                        </article>
+
+                        <article class="cultura-card">
+                            <img src="https://images.unsplash.com/photo-1486572788966-cfd3db1f4ca1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80" alt="Cinema">
+                            <div class="cultura-content">
+                                <h3>Nuovo film girato in città</h3>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sezione Altre Notizie -->
+            <section class="altre-notizie">
+                <div class="section-header">
+                    <h2 class="section-title">Altre Notizie</h2>
+                    <a href="#" class="see-all">Vedi tutti</a>
+                </div>
+
+                <div class="altre-notizie-grid">
+                    <article class="altre-notizie-card">
+                        <img src="https://images.unsplash.com/photo-1562601579-599dec564e06?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="Consiglio comunale">
+                        <div class="altre-notizie-content">
+                            <h4>Consiglio comunale: approvato il nuovo piano</h4>
+                        </div>
+                    </article>
+
+                    <article class="altre-notizie-card">
+                        <img src="https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="UE">
+                        <div class="altre-notizie-content">
+                            <h4>Il sindaco incontra i rappresentanti dell'UE</h4>
+                        </div>
+                    </article>
+
+                    <article class="altre-notizie-card">
+                        <img src="https://images.unsplash.com/photo-1521791055366-0d553872125f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="Dimissioni">
+                        <div class="altre-notizie-content">
+                            <h4>Scandalo nella giunta: si dimette l'assessore</h4>
+                        </div>
+                    </article>
+
+                    <article class="altre-notizie-card">
+                        <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="Smartphone">
+                        <div class="altre-notizie-content">
+                            <h4>Arriva il nuovo smartphone rivoluzionario</h4>
+                        </div>
+                    </article>
+
+                    <article class="altre-notizie-card">
+                        <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="Robot">
+                        <div class="altre-notizie-content">
+                            <h4>L'AI che cambierà il lavoro</h4>
+                        </div>
+                    </article>
+
+                    <article class="altre-notizie-card">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="Startup">
+                        <div class="altre-notizie-content">
+                            <h4>Startup locale vince premio</h4>
+                        </div>
+                    </article>
+
+                    <article class="altre-notizie-card">
+                        <img src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="Temperatura">
+                        <div class="altre-notizie-content">
+                            <h4>Nuovo record di temperatura</h4>
+                        </div>
+                    </article>
+
+                    <article class="altre-notizie-card">
+                        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="Risparmio">
+                        <div class="altre-notizie-content">
+                            <h4>Come risparmiare sulla bolletta</h4>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Sezione Sport -->
+            <section class="sport">
+                <div class="container">
+                    <div class="section-header">
+                        <h2 class="section-title">Sport</h2>
+                        <a href="#" class="see-all">Vedi tutti</a>
+                    </div>
+
+                    <div class="sport-grid">
+                        <article class="sport-card">
+                            <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80" alt="Calcio">
+                            <div class="sport-content">
+                                <h3>Derby cittadino: vittoria storica</h3>
+                            </div>
+                        </article>
+
+                        <article class="sport-card">
+                            <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80" alt="Basket">
+                            <div class="sport-content">
+                                <h3>Basket: semifinale raggiunta</h3>
+                            </div>
+                        </article>
+
+                        <article class="sport-card">
+                            <img src="https://images.unsplash.com/photo-1485965120184-e220f721d03e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80" alt="Ciclismo">
+                            <div class="sport-content">
+                                <h3>Ciclismo: trionfo locale</h3>
+                            </div>
+                        </article>
+
+                        <article class="sport-card">
+                            <img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80" alt="Nuoto">
+                            <div class="sport-content">
+                                <h3>Nuoto: record personale</h3>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sezione Rubriche  -->
+            <section class="rubriche">
+                <div class="section-header">
+                    <h2 class="section-title">Rubriche</h2>
+                    <a href="#" class="see-all">Vedi tutti</a>
+                </div>
+
+                <div class="rubriche-grid">
+                    <article class="rubriche-card">
+                        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="Ristoranti">
+                        <div class="rubriche-content">
+                            <h4>I migliori ristoranti della città</h4>
+                        </div>
+                    </article>
+
+                    <article class="rubriche-card">
+                        <img src="https://images.unsplash.com/photo-1493770348161-369560ae357d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="Salute">
+                        <div class="rubriche-content">
+                            <h4>Consigli del medico: prevenzione estiva</h4>
+                        </div>
+                    </article>
+
+                    <article class="rubriche-card">
+                        <img src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="Meteo">
+                        <div class="rubriche-content">
+                            <h4>Previsioni meteo per la settimana</h4>
+                        </div>
+                    </article>
+
+                    <article class="rubriche-card">
+                        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="Finanza">
+                        <div class="rubriche-content">
+                            <h4>Finanza personale: come investire</h4>
+                        </div>
+                    </article>
+
+                    <article class="rubriche-card">
+                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="Scienza">
+                        <div class="rubriche-content">
+                            <h4>Le ultime scoperte scientifiche</h4>
+                        </div>
+                    </article>
+
+                    <article class="rubriche-card">
+                        <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="Tecnologia">
+                        <div class="rubriche-content">
+                            <h4>Novità tecnologiche da non perdere</h4>
+                        </div>
+                    </article>
+
+                    <article class="rubriche-card">
+                        <img src="https://images.unsplash.com/photo-1493770348161-369560ae357d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="Benessere">
+                        <div class="rubriche-content">
+                            <h4>Benessere: esercizi per la schiena</h4>
+                        </div>
+                    </article>
+
+                    <article class="rubriche-card">
+                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="Lavoro">
+                        <div class="rubriche-content">
+                            <h4>Lavoro: come prepararsi al colloquio</h4>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Sezione Video -->
+            <section class="video-section">
+                <div class="container">
+                    <div class="section-header">
+                        <h2 class="section-title">I nostri video</h2>
+                        <a href="#" class="see-all">Vedi tutti</a>
+                    </div>
+
+                    <div class="video-grid">
+                        <div class="video-card">
+                            <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80" alt="Video 1">
+                            <div class="play-icon"><i class="fas fa-play"></i></div>
+                            <div class="video-title">Intervista al sindaco</div>
+                        </div>
+                        <div class="video-card">
+                            <img src="https://images.unsplash.com/photo-1542190891-2093d38760f2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80" alt="Video 2">
+                            <div class="play-icon"><i class="fas fa-play"></i></div>
+                            <div class="video-title">Dietro le quinte del museo</div>
+                        </div>
+                        <div class="video-card">
+                            <img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80" alt="Video 3">
+                            <div class="play-icon"><i class="fas fa-play"></i></div>
+                            <div class="video-title">Vita nel quartiere antico</div>
+                        </div>
+                        <div class="video-card">
+                            <img src="https://images.unsplash.com/photo-1486572788966-cfd3db1f4ca1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80" alt="Video 4">
+                            <div class="play-icon"><i class="fas fa-play"></i></div>
+                            <div class="video-title">I migliori parchi cittadini</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sezione Italia e Mondo -->
+            <section class="italia-mondo">
+                <div class="section-header">
+                    <h2 class="section-title">Italia e Mondo</h2>
+                    <a href="#" class="see-all">Vedi tutti</a>
+                </div>
+
+                <article class="tim-article">
+                    <img src="https://images.unsplash.com/photo-1494412651409-8963ce7935a7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80" alt="Manifestazione">
+                    <div class="tim-content">
+                        <h3>Manifestazione degli studenti: traffico in tilt <span class="video-badge">VIDEO</span></h3>
+                        <p>Migliaia di giovani in piazza per protestare contro i tagli all'istruzione.</p>
+                    </div>
+                </article>
+
+                <article class="tim-article">
+                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80" alt="Incendio">
+                    <div class="tim-content">
+                        <h3>Incendio in fabbrica: danni per milioni</h3>
+                        <p>Le fiamme hanno distrutto parte dello stabilimento industriale nella zona nord della città.</p>
+                    </div>
+                </article>
+
+                <article class="tim-article">
+                    <img src="https://images.unsplash.com/photo-1600469984476-c713650f1b8d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80" alt="Polizia">
+                    <div class="tim-content">
+                        <h3>Rapina in banca: arrestati i presunti autori <span class="video-badge">VIDEO</span></h3>
+                        <p>I carabinieri hanno fermato tre persone sospettate del colpo in centro città la scorsa settimana.</p>
+                    </div>
+                </article>
+            </section>
+
+            <!-- Sezione Necrologie - Lista con foto -->
+            <section class="necrologie">
+                <div class="section-header">
+                    <h2 class="section-title">Necrologie</h2>
+                    <a href="#" class="see-all">Vedi tutti</a>
+                </div>
+
+                <div class="necrologie-list">
+                    <div class="necrologia-item">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="Defunto">
+                        <div class="necrologia-info">
+                            <h4>Mario Rossi</h4>
+                            <p>80 anni, deceduto il 23/04/2025</p>
+                        </div>
+                    </div>
+
+                    <div class="necrologia-item">
+                        <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="Defunto">
+                        <div class="necrologia-info">
+                            <h4>Luisa Bianchi</h4>
+                            <p>75 anni, deceduta il 22/04/2025</p>
+                        </div>
+                    </div>
+
+                    <div class="necrologia-item">
+                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="Defunto">
+                        <div class="necrologia-info">
+                            <h4>Giovanni Verdi</h4>
+                            <p>68 anni, deceduto il 21/04/2025</p>
+                        </div>
+                    </div>
+
+                    <div class="necrologia-item">
+                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="Defunto">
+                        <div class="necrologia-info">
+                            <h4>Anna Neri</h4>
+                            <p>72 anni, deceduta il 20/04/2025</p>
+                        </div>
+                    </div>
+
+                    <div class="necrologia-item">
+                        <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="Defunto">
+                        <div class="necrologia-info">
+                            <h4>Paolo Gialli</h4>
+                            <p>65 anni, deceduto il 19/04/2025</p>
+                        </div>
+                    </div>
+
+                    <div class="necrologia-item">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="Defunto">
+                        <div class="necrologia-info">
+                            <h4>Marco Blu</h4>
+                            <p>70 anni, deceduto il 18/04/2025</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>Il Continente</h3>
+                    <ul>
+                        <li><a href="#">Chi siamo</a></li>
+                        <li><a href="#">Redazione</a></li>
+                        <li><a href="#">Contatti</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Rubriche</h3>
+                    <ul>
+                        <li><a href="#">Edizione digitale</a></li>
+                        <li><a href="#">Newsletter</a></li>
+                        <li><a href="#">Necrologie</a></li>
+                        <li><a href="#">Annunci</a></li>
+                        <li><a href="#">Lavoro</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Servizi</h3>
+                    <ul>
+                        <li><a href="#">Abbonamenti</a></li>
+                        <li><a href="#">Pubblicità</a></li>
+                        <li><a href="#">Archivio</a></li>
+                        <li><a href="#">Eventi</a></li>
+                        <li><a href="#">Segnalazioni</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Seguici</h3>
+                    <ul>
+                        <li><a href="#"><i class="fab fa-facebook-f"></i> Facebook</a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                        <li><a href="#"><i class="fab fa-youtube"></i> YouTube</a></li>
+                        <li><a href="#"><i class="fab fa-telegram"></i> Telegram</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2025 GAZZETTA DI MANTOVA - Tutti i diritti riservati</p>
+            </div>
+        </div>
+    </footer>
+
+  </body>
+</html>
